@@ -1,0 +1,15 @@
+name: throttler-rate-limit
+
+services:
+  redis:
+    container_name: throttler-rate-limit-redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - throttler-rate-limit-network
+
+networks:
+  throttler-rate-limit-network:
+    name: throttler-rate-limit-network
+    driver: bridge

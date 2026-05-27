@@ -1,0 +1,20 @@
+services:
+  vault:
+    # (EN: HashiCorp Vault dev server — auto-unsealed, in-memory storage)
+    # (VI: Vault dev server — tự động unseal, lưu trữ in-memory)
+    image: hashicorp/vault:1.17
+    container_name: vault
+    ports:
+      - "8200:8200"
+    environment:
+      # (EN: root token for dev mode — never use in production)
+      # (VI: root token cho dev mode — không bao giờ dùng trong production)
+      VAULT_DEV_ROOT_TOKEN_ID: dev-root-token
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
+    cap_add:
+      - IPC_LOCK
+    healthcheck:
+      test: ["CMD", "vault", "status"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
